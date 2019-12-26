@@ -1,2 +1,6 @@
 # temporary files
 *.un~
+*.swp
+
+# secret files
+user_passwd.txt
