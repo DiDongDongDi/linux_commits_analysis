@@ -95,7 +95,7 @@ while True:
 	except re.RequestException:
 		print('Retry GET ...')
 	time.sleep(0.72)
-    r_json = r.json()	
+	r_json = r.json()
 ```
 
 #### 数据处理
