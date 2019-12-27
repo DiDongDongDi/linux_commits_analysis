@@ -1,3 +1,5 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
 # Github开源项目*torvalds/linux*历史提交信息分析统计
 
 ## 项目背景及意义
@@ -105,7 +107,7 @@ def users_add(user_dict):
 
 ```python
 # 添加commit到列表(需要对日期进行转换)
-        commits.append({'author_date': datetime.fromisoformat(author_date[:-1]), 'author_login': author_login, 'committer_date': datetime.fromisoformat(committer_date[:-1]), 'committer_login': committer_login, 'comment_count': comment_count, 'message': message})
+commits.append({'author_date': datetime.fromisoformat(author_date[:-1]), 'author_login': author_login, 'committer_date': datetime.fromisoformat(committer_date[:-1]), 'committer_login': committer_login, 'comment_count': comment_count, 'message': message})
 
 # 添加user到列表
 users_add({'user': author_login, 'avatar': author_avatar, 'html': author_html})
