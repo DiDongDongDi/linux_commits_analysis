@@ -3,4 +3,4 @@
 *.swp
 
 # secret files
-user_passwd.txt
+secret

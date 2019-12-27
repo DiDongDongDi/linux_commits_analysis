@@ -32,11 +32,11 @@
 >
 > 这里我们使用了较为简单的[使用github用户名和密码进行验证](https://developer.github.com/v3/auth/#basic-authentication).
 
-将用户名和密码放到项目根目录下的`user_passwd.txt`文件中, 格式为`username:password`, 不要有其他字符.
+将用户名和密码放到`secret`目录下的`user_passwd.txt`文件中, 格式为`username:password`, 不要有其他字符.
 
 ```python
 # 设置api_url
-with open('user_passwd.txt', 'r') as f:
+with open('../secret/user_passwd.txt', 'r') as f:
     user_passwd = f.read()
 	# [:-1] 去掉换行符
     api_url = "https://" + user_passwd[:-1] + "@api.github.com/repos/torvalds/linux/commits"

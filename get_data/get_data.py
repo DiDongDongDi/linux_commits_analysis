@@ -21,7 +21,7 @@ collection_users = db.users
 
 # api
 # 用户名和密码
-with open('user_passwd.txt', 'r') as f:
+with open('../secret/user_passwd.txt', 'r') as f:
     user_passwd = f.read()
     api_url = "https://" + user_passwd[:-1] + "@api.github.com/repos/torvalds/linux/commits"
 params = {"since": "2019-01-01T00:00:00Z" ,"until": "2020-01-01T00:00:00Z"}
