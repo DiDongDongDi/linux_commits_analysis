@@ -24,7 +24,7 @@
 
 > 注意:
 >
-> 调用[API.github.com](API.github.com)的接口有次数限制:
+> 调用[api.github.com](api.github.com)的接口有次数限制:
 >- 在不进行用户验证的情况下, 一小时内最多调用60次接口;
 >- 在使用github用户验证后, 一小时内最多可调用5000次接口.
 >
@@ -35,14 +35,14 @@
 将用户名和密码放到项目根目录下的`user_passwd.txt`文件中, 格式为`username:password`, 不要有其他字符.
 
 ```python
-# 设置API_url
+# 设置api_url
 with open('user_passwd.txt', 'r') as f:
     user_passwd = f.read()
 	# [:-1] 去掉换行符
-    API_url = "https://" + user_passwd[:-1] + "@API.github.com/repos/torvalds/linux/commits"
+    api_url = "https://" + user_passwd[:-1] + "@api.github.com/repos/torvalds/linux/commits"
 ```
 
-`API_url`的参数, 使用`since`和`until`来限定时间范围. 但API每次返回的commit数目最多30条, 而且是返回靠近现在时间的结果, 所以每调用一次API都需要修改`until`的值.
+`api_url`的参数, 使用`since`和`until`来限定时间范围. 但API每次返回的commit数目最多30条, 而且是返回靠近现在时间的结果, 所以每调用一次API都需要修改`until`的值.
 
 > 注意:
 >
@@ -100,7 +100,7 @@ while True:
 
 #### 数据处理
 
-我们使用list来暂存get到的commits和users, 由于commits不会有重复, 所以每调用一次api后就直接将这一批数据插入数据库, 但users可能会出现重复, 所以对其进行处理, 不重复放入list, 同时由于users并不多, 所以在所有api调用结束后, 再统一插入数据库.
+我们使用list来暂存get到的commits和users, 由于commits不会有重复, 所以每调用一次API后就直接将这一批数据插入数据库, 但users可能会出现重复, 所以对其进行处理, 不重复放入list, 同时由于users并不多, 所以在所有API调用结束后, 再统一插入数据库.
 
 ```python
 # 添加user到列表
