@@ -1,5 +1,3 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
 # Github开源项目*torvalds/linux*历史提交信息分析统计
 
 ## 项目背景及意义
@@ -72,7 +70,7 @@ if len(r_json) < 30:
 
 然后就可以调用API了, 但由于一小时内最多调用5000次, 所以需要延时以确保不会过快调用, 每次调用后的延时为:
 
-$$ 60 \times 60 \div 5000 = 0.72(s) $$
+<img src="http://latex.codecogs.com/gif.latex?60 \times 60 \div 5000 = 0.72(s)"/>
 
 > 注意:
 > 这里并没有考虑网络传输延时和数据处理时间
