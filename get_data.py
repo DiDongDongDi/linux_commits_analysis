@@ -25,7 +25,6 @@ with open('user_passwd.txt', 'r') as f:
     user_passwd = f.read()
     api_url = "https://" + user_passwd[:-1] + "@api.github.com/repos/torvalds/linux/commits"
 params = {"since": "2019-01-01T00:00:00Z" ,"until": "2020-01-01T00:00:00Z"}
-print(api_url)
 
 # users数目不多, 先直接放内存
 users = []
@@ -33,7 +32,14 @@ users = []
 while True:
 #  for x in range(3):
     # get data
-    r = re.get(api_url, params=params)
+    while True:
+        try:
+            r = re.get(api_url, params=params)
+            break
+        except re.Timeout:
+            print('Retry GET ...')
+        except re.RequestException:
+            print('Retry GET ...')
     # 延时0.72秒, 防止get太快造成被封, 这里没有管传输和处理时间了
     time.sleep(0.72)
     r_json = r.json()
@@ -74,6 +80,8 @@ while True:
             users_add({'user': committer_login, 'avatar': committer_avatar, 'html': committer_html})
 
     # 将每次get到的最后一条commit的时间作为下一次的until时间
+    if len(r_json) == 0:
+        break
     next_until_time = datetime.isoformat(datetime.fromisoformat(r_json[-1]['commit']['committer']['date'][:-1]) - one_second)
     params["until"] =  next_until_time + 'Z'
 
