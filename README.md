@@ -23,10 +23,13 @@
 使用[List commits on a repository](https://developer.github.com/v3/repos/commits/#list-commits-on-a-repository)的接口来获取commits数据.
 
 > 注意:
+>
 > 调用[API.github.com](API.github.com)的接口有次数限制:
 >- 在不进行用户验证的情况下, 一小时内最多调用60次接口;
 >- 在使用github用户验证后, 一小时内最多可调用5000次接口.
+>
 > 详情请见[接口调用限制](https://developer.github.com/v3/#rate-limiting), [OAuth Authorizations API](https://developer.github.com/v3/oauth_authorizations/), [其他验证方式](https://developer.github.com/v3/auth/).
+>
 > 这里我们使用了较为简单的[使用github用户名和密码进行验证](https://developer.github.com/v3/auth/#basic-authentication).
 
 将用户名和密码放到项目根目录下的`user_passwd.txt`文件中, 格式为`username:password`, 不要有其他字符.
@@ -42,11 +45,15 @@ with open('user_passwd.txt', 'r') as f:
 `API_url`的参数, 使用`since`和`until`来限定时间范围. 但API每次返回的commit数目最多30条, 而且是返回靠近现在时间的结果, 所以每调用一次API都需要修改`until`的值.
 
 > 注意:
+>
 > 在修改`until`的值时, 如果改为上一次返回结果的最后一条的时间, 再次返回结果时, 会将上一次的最后一条再次返回, 解决这个问题有两种方法:
 >- 第一种, 直接将再次拿到的上一条抛弃;
 >- 第二种, 把时间减一秒, 然后再调API.
+>
 > 这里我们采用的是第二种, 以免重复数据调用造成浪费.
+>
 > 同时由于Python的datetime库的ISO时间表示不同于mongodb和github, 所以需要进行一下简单的转换.
+>
 > 由于每次只能返回30条数据, 所以当返回数据小于30时, 可以认为这是最后一批数据了, 此时停止`GET`. 但测试过程中出现了最后一批数据为0条(这也太巧了), 造成列表索引溢出, 所以需要特别关照一下.
 
 ```python
@@ -73,6 +80,7 @@ if len(r_json) < 30:
 <img src="http://latex.codecogs.com/gif.latex?60 \times 60 \div 5000 = 0.72(s)"/>
 
 > 注意:
+>
 > 这里并没有考虑网络传输延时和数据处理时间
 
 同时由于网络原因, 有时会出现连接超时中断, 所以需要[捕获异常](https://stackoverflow.com/questions/24210792/checking-for-timeout-error-in-python)并重新发送请求. 最后将获取到的数据转为json格式.
@@ -136,7 +144,9 @@ except TypeError:
 ```
 
 > 注意:
+>
 > 每一条commit中都存在`author`和`committer`的`name`, 但是并没有将这个作为区分的标准, 而是使用`login`, 即github的登录用户名.
+>
 > 原因是`name`有重复的可能, 但`login`必定是唯一的, 从而避免同名的重复统计, 但是也造成了会对没有`login`的漏统.
 
 #### 数据库
@@ -162,6 +172,7 @@ user | avatar | html
 最后commits一共有`74010`条, users一共有`2530`条.
 
 > 注意:
+>
 > 抓取数据的时间是`2019年12月27日`, 最近的一条数据的时间是`2019年12月23日`, 所以并不算是2019年全年, 数据结果仅供参考.
 
 ### 数据分析
