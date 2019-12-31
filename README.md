@@ -181,7 +181,7 @@ user | avatar | html
 
 之前有一篇Ivan的关于[At what time of day do famous programmers work?](https://ivan.bessarabov.com/blog/famous-programmers-work-time)的博客, 下面是Linus对[https://github.com/torvalds/linux](https://github.com/torvalds/linux)库的提交时间图表:
 
-![Linus对linux库的提交时间分布](http://qiniu.wangqy.top/didong/images/linux_commits_0.jpg)
+![Linus对linux库的提交时间分布](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_0.jpg)
 
 在这里我们借此机会, 对其做一个验证.
 
@@ -191,7 +191,7 @@ user | avatar | html
 
 最后的结果如下图:
 
-![Linus对linux库的提交时间分布(2019年)](http://qiniu.wangqy.top/didong/images/linux_commits_1.jpg)
+![Linus对linux库的提交时间分布(2019年)](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_1.jpg)
 
 可以看出:
 
