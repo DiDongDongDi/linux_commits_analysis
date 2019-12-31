@@ -191,7 +191,7 @@ user | avatar | html
 
 最后的结果如下图:
 
-![Linus对linux库的提交时间分布(2019年)](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_1.jpg)
+![Linus对linux库的提交时间分布(2019年)](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_1.png)
 
 其中, Linus在2019年共提交了3770次.
 
