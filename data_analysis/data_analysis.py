@@ -21,7 +21,8 @@ for date in torvalds_commit_date:
     torvalds_commit_hour_count[date['committer_date'].hour] += 1
 
 # 调整时区
-torvalds_commit_hour_count_old = torvalds_commit_hour_count
+# python复制list
+torvalds_commit_hour_count_old = torvalds_commit_hour_count[:]
 for i in range(24):
     torvalds_commit_hour_count[i-8] = torvalds_commit_hour_count_old[i]
 
