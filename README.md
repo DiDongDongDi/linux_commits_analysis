@@ -177,7 +177,29 @@ user | avatar | html
 
 ### 数据分析
 
+#### Coding时间分布
 
+之前有一篇Ivan的关于[At what time of day do famous programmers work?](https://ivan.bessarabov.com/blog/famous-programmers-work-time)的博客, 下面是Linus对[https://github.com/torvalds/linux](https://github.com/torvalds/linux)库的提交时间图表:
+
+![Linus对linux库的提交时间分布](http://qiniu.wangqy.top/didong/images/linux_commits_0.jpg)
+
+在这里我们借此机会, 对其做一个验证.
+
+> 注意:
+>- API所提供的时间是UTC时区的时间, 所以如果对所有author或committer进行统计是没有意义的, 因此这里只选择了Linus进行统计, 根据维基百科中对[Linus Torvalds](https://en.wikipedia.org/wiki/Linus_Torvalds)的说明, 其住所应该是在*Dunthorpe, Oregon, U.S.*, 所以根据时区, Linus提交时的真实时间应该是UTC时区时间再减去8小时.
+>- git中有author和committer的区别, 其中, author是编写补丁的人, committer是应用补丁的人, 可参考[https://stackoverflow.com/questions/18750808/difference-between-author-and-committer-in-git](https://stackoverflow.com/questions/18750808/difference-between-author-and-committer-in-git). 在这里, 对于Linus来说, 我们采用committer来进行统计.
+
+最后的结果如下图:
+
+![Linus对linux库的提交时间分布(2019年)](http://qiniu.wangqy.top/didong/images/linux_commits_1.jpg)
+
+可以看出:
+
+1. 2019年的10点依旧是Linus的提交高峰期, 同时18点也是2019年的另一个提交高峰期(这里和Ivan的不太相符, 推测是数据量过少)
+
+2. 作息依旧比较正常, 晚上代码提交量少, 白天代码提交量多
+
+3. 发现14-15点代码提交量出奇的少(可能是睡午觉?)
 
 ### 结果展示
 
