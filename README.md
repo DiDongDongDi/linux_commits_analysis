@@ -81,7 +81,7 @@ if len(r_json) < 30:
 
 > 注意:
 >
-> 这里并没有考虑网络传输延时和数据处理时间
+> 这里并没有考虑网络传输延时和数据处理时间.
 
 同时由于网络原因, 有时会出现连接超时中断, 所以需要[捕获异常](https://stackoverflow.com/questions/24210792/checking-for-timeout-error-in-python)并重新发送请求. 最后将获取到的数据转为json格式.
 
@@ -186,7 +186,7 @@ user | avatar | html
 在这里我们借此机会, 对其做一个验证.
 
 > 注意:
->- API所提供的时间是UTC时区的时间, 所以如果对所有author或committer进行统计是没有意义的, 因此这里只选择了Linus进行统计, 根据维基百科中对[Linus Torvalds](https://en.wikipedia.org/wiki/Linus_Torvalds)的说明, 其住所应该是在*Dunthorpe, Oregon, U.S.*, 所以根据时区, Linus提交时的真实时间应该是UTC时区时间再减去8小时.
+>- API所提供的时间是UTC时区的时间, 所以如果对所有author或committer进行统计是没有意义的, 因此这里只选择了Linus进行统计, 根据维基百科中对[Linus Torvalds](https://en.wikipedia.org/wiki/Linus_Torvalds)的说明, 其住所应该是在*Dunthorpe, Oregon, U.S.*, 所以根据时区, Linus提交时的真实时间应该是UTC时区时间再减去8小时;
 >- git中有author和committer的区别, 其中, author是编写补丁的人, committer是应用补丁的人, 可参考[https://stackoverflow.com/questions/18750808/difference-between-author-and-committer-in-git](https://stackoverflow.com/questions/18750808/difference-between-author-and-committer-in-git). 在这里, 对于Linus来说, 我们采用committer来进行统计.
 
 最后的结果如下图:
@@ -197,13 +197,13 @@ user | avatar | html
 
 可以看出:
 
-1. 2019年9点左右是Linus提交的高峰期, 与Ivan的10点比较靠近, 18点又到达另一个提交的高峰期
+1. 2019年9点左右是Linus提交的高峰期, 与Ivan的10点比较靠近, 18点又到达另一个提交的高峰期;
 
-2. 作息依旧比较正常, 白天提交次数多, 晚上提交次数少, 6点开始提交次数慢慢变多, 8点(应该是正式开始工作)爆发, 22点开始提交次数就很少了
+2. 作息依旧比较正常, 白天提交次数多, 晚上提交次数少, 6点开始提交次数慢慢变多, 8点(应该是正式开始工作)爆发, 22点开始提交次数就很少了;
 
-3. 2点的提交还是挺多的, 看来大佬也熬夜
+3. 2点的提交还是挺多的, 看来大佬也熬夜;
 
-4. 总体说来与Ivan的结果还是比较接近的, 但由于数据量较少的原因, 不是特别接近
+4. 总体说来与Ivan的结果还是比较接近的, 但由于数据量较少的原因, 不是特别接近.
 
 ### 结果展示
 
