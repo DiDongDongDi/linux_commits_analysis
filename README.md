@@ -1,10 +1,8 @@
 # Github开源项目**torvalds/linux**历史提交信息分析统计
 
 ## 项目背景及意义
-网 络 爬 虫， 又 称 网 页 蜘 蛛（webspider），是一个功能强大的能够自动提取网页信息的程序，它模仿浏览器访问网络资源，
-从而获取用户需要的信息，它可以为搜索引擎从万维网上下载网页信息，因此也是搜索引擎的重要组成部分。
-我们在github上对有关torvalds/linux提交的信息进行爬虫，通过python的pandas,matplotlib,pyecharts等库，将信息可视化，
-绘制成条形图，柱状图，饼状图等，主要探究linux有关文件在2019年用户提交次数、提交时间等信息。
+
+网络爬虫, 又称网页蜘蛛(webspider), 是一个功能强大的能够自动提取网页信息的程序, 它模仿浏览器访问网络资源, 从而获取用户需要的信息, 它可以为搜索引擎从万维网上下载网页信息, 因此也是搜索引擎的重要组成部分. 我们在github上对有关**torvalds/linux**提交的信息进行抓取, 通过python的pandas, matplotlib, pyecharts等库, 对数据进行统计分析, 将信息可视化, 绘制成条形图, 柱状图, 饼状图等, 主要探究linux有关文件在2019年用户提交次数, 提交时间等信息.
 
 ## 项目创新点
 
@@ -178,15 +176,20 @@ user | avatar | html
 > 抓取数据的时间是`2019年12月27日`, 最近的一条数据的时间是`2019年12月23日`, 所以并不算是2019年全年, 数据结果仅供参考.
 
 ### 数据分析
+
 #### commits数据可视化
-首先将爬虫的数据存成.csv文件。下面我们分析的数据均来自生成的datefile.csv文件：
+
+首先将爬虫的数据存成`.csv`文件. 下面我们分析的数据均来自生成的`datefile.csv`文件:
+
 ```python
-# 读取.csv文件，这里引用了pandas包和csv包
+# 读取.csv文件, 这里引用了pandas包和csv包
 import pandas as pd
 import csv
 pr= pd.read_csv(r'C:\Users\w\Desktop\datefile.csv',encoding='ISO-8859-1')
 ```
-然后将每月提交量按月份取出
+
+然后将每月提交量按月份取出.
+
 ```python
 Dec = pr[pr['committer_date'].str.startswith("2019-12")]
 Nov = pr[pr['committer_date'].str.startswith("2019-11")]
@@ -201,7 +204,9 @@ Mar = pr[pr['committer_date'].str.startswith("2019-03")]
 Feb = pr[pr['committer_date'].str.startswith("2019-02")]
 Jan = pr[pr['committer_date'].str.startswith("2019-01")]
 ```
-通过计算每一组DataFrame的行数，来计算每月提交量。最后，设置要可视化的参数，进行可视化。
+
+通过计算每一组DataFrame的行数, 来计算每月提交量. 最后, 设置要可视化的参数, 进行可视化. 
+
 ```python
 month_counts = [ Jan.shape[0],Feb.shape[0], Mar.shape[0], Apr.shape[0], May.shape[0],Jun.shape[0],
               Jul.shape[0], Aug.shape[0],Sept.shape[0],Oct.shape[0],Nov.shape[0],Dec.shape[0]]
@@ -211,14 +216,18 @@ month_counts = [ Jan.shape[0],Feb.shape[0], Mar.shape[0], Apr.shape[0], May.shap
 month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
        "Sept","Oct","Nov","Dec"]
 ```
-最终我们得到了每月提交量柱状图和每月提交量对比的饼状图
-（放上两个图片）
-可以看出：
-1. 2019年6月与10月是Linus提交的高峰期，看来此时已经进入了工作的白热化阶段;
 
-2. 12月的提交量相对于别的月份来说，尤其少，看来程序员在一年的结尾都不是很想工作;
+最终我们得到了每月提交量柱状图和每月提交量对比的饼状图:
 
-3. 总体说来，6月提交量最多为8148次，而12月的最少为1398次.
+(放上两个图片)
+
+可以看出:
+
+1. 2019年6月与10月是Linus提交的高峰期, 看来此时已经进入了工作的白热化阶段;
+
+2. 12月的提交量相对于别的月份来说, 尤其少, 看来程序员在一年的结尾都不是很想工作;
+
+3. 总体说来, 6月提交量最多为8148次, 而12月的最少为1398次.
 
 #### Coding时间分布
 
