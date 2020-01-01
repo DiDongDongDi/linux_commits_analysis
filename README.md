@@ -320,7 +320,7 @@ plt.plot(x,month_counts1,label='author_date',color='b',linewidth=2.0)
 
 ![上传与提交次数对比折线图](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_2.png)
 
-可以看出：
+可以看出:
 
 1. 提交量普遍高于上传量, 看来编码比审核复杂;
 
