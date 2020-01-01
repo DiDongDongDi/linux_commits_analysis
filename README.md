@@ -36,6 +36,8 @@ Linux继承了Unix以网络为核心的设计思想, 是一个性能稳定的多
 
 ### 数据获取
 
+代码文件为`./get_date/get_date.py`.
+
 #### API调用
 
 一开始准备直接爬取[commits界面](https://github.com/torvalds/linux/commits/master), 然后跑到github的[robots.txt](https://github.com/robots.txt)下去看, 很明显, 大部分数据都不让爬, 还有可能会被反爬虫, 但是恰好github很贴心地准备了[API接口](https://developer.github.com/), 这里我们使用的是[REST API v3](https://developer.github.com/v3/).
@@ -193,11 +195,13 @@ user | avatar | html
 
 > 注意:
 >
-> 抓取数据的时间是`2019年12月27日`, 最近的一条数据的时间是`2019年12月23日`, 所以并不算是2019年全年, 数据结果仅供参考.
+> 抓取数据的时间是`2019年12月27日`, 最近的一条数据的时间是`2019年12月23日`, 所以并不算是2019年全年, 由于时间有限, 数据结果仅供参考.
 
 ### 数据分析
 
-#### commits数据可视化
+#### 各月提交次数
+
+代码文件为`./data_analysis/month_committer_date.py`.
 
 首先将爬虫的数据存成`.csv`文件. 下面我们分析的数据均来自生成的`datefile.csv`文件:
 
@@ -251,7 +255,9 @@ month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
 
 3. 总体说来, 6月提交量最多为8148次, 而12月的最少为1398次.
 
-#### author_date数据可视化
+#### 各月上传次数
+
+代码文件为`./data_analysis/month_author_date.py`.
 
 同committer_date一样, 首先将爬虫的数据存成`.csv`文件. 下面我们分析的数据均来自生成的`datefile.csv`文件:
 
@@ -305,7 +311,9 @@ month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
 
 3. 总体说来, 6月上传量最多为7435次, 而12月的最少为1183次.
 
-#### 上传与提交次数可视化对比
+#### 上传与提交次数对比
+
+代码文件为`./data_analysis/month_author_committer_compare.py`.
 
 我们还想探究一下上传与提交的关系, 所以在这里我们又生成了一个两者对比折线图. 
 
@@ -328,6 +336,8 @@ plt.plot(x,month_counts1,label='author_date',color='b',linewidth=2.0)
 
 #### Coding时间分布
 
+代码文件为`./data_analysis/Linus_hour_week_commit_analysis.py`.
+
 之前有一篇Ivan的关于[At what time of day do famous programmers work?](https://ivan.bessarabov.com/blog/famous-programmers-work-time)的博客, 下面是Linus对[https://github.com/torvalds/linux](https://github.com/torvalds/linux)库的提交时间图表:
 
 ![Linus对linux库的提交时间分布](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_0.jpg)
@@ -340,7 +350,7 @@ plt.plot(x,month_counts1,label='author_date',color='b',linewidth=2.0)
 
 最后的结果如下图:
 
-![Linus对linux库的提交时间分布(2019年)](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_1.png)
+![Linus对linux库的提交小时分布(2019年)](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_1.png)
 
 其中, Linus在2019年共提交了3770次.
 
@@ -353,6 +363,20 @@ plt.plot(x,month_counts1,label='author_date',color='b',linewidth=2.0)
 3. 2点的提交还是挺多的, 看来大佬也熬夜;
 
 4. 总体说来与Ivan的结果还是比较接近的, 但由于数据量较少的原因, 不是特别接近.
+
+除此之外, 对Linus不同星期的提交情况也进行了统计分析.
+
+![Linus对linux库的提交星期分布(2019年)](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_2.png)
+
+> 注意:
+>
+> 这里依旧需要减去8小时.
+
+可以看出:
+
+1. 星期一和星期四, Linus的代码提交数最多;
+
+2. 除去星期一和四, 其他星期工作日和休息日的差别不是很大.
 
 ### 结果展示
 
