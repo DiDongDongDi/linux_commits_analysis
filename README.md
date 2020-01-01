@@ -239,7 +239,7 @@ month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
 ```
 
 最终我们得到了每月提交量柱状图和每月提交量对比的饼状图:
-
+[柱状图](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_0.jpg)
 (放上两个图片)
 
 可以看出:
