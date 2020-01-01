@@ -2,7 +2,28 @@
 
 ## 项目背景及意义
 
-网络爬虫, 又称网页蜘蛛(webspider), 是一个功能强大的能够自动提取网页信息的程序, 它模仿浏览器访问网络资源, 从而获取用户需要的信息, 它可以为搜索引擎从万维网上下载网页信息, 因此也是搜索引擎的重要组成部分. 我们在github上对有关**torvalds/linux**提交的信息进行抓取, 通过python的pandas, matplotlib, pyecharts等库, 对数据进行统计分析, 将信息可视化, 绘制成条形图, 柱状图, 饼状图等, 主要探究linux有关文件在2019年用户提交次数, 提交时间等信息.
+### 背景
+
+#### Github
+
+Github拥有超过900万开发者用户. 随着越来越多的应用程序转移到了云上, Github已经成为了管理软件开发以及发现已有代码的首选方法. 如前所述作为一个分布式的版本控制系统, 在Git中并不存在主库这样的概念, 每一份复制出的库都可以独立使用, 任何两个库之间的不一致之处都可以进行合并. GitHub可以托管各种git库, 并提供一个web界面, GitHub的独特卖点在于从另外一个项目进行分支的简易性. 
+
+#### 开源
+
+开放源代码也称为源代码公开, 指的是一种软件发布模式. 一般的软件仅可取得已经过编译的二进制可执行档, 通常只有软件的作者或著作权所有者等拥有程序的原始码. 
+
+#### Git
+
+Git是Linus Torvalds为了帮助管理Linux内核开发而开发的一个开放源码的版本控制软件. 
+
+#### Linux
+
+Linux继承了Unix以网络为核心的设计思想, 是一个性能稳定的多用户网络操作系统. 与其他操作系统相比, 具有开放源码, 没有版权, 技术社区用户多等特点, 开放源码使得用户可以自由裁剪, 灵活性高, 功能强大, 成本低. 尤其系统中内嵌网络协议栈, 经过适当的配置就可实现路由器的功能. 这些特点使得Linux成为开发路由交换设备的理想开发平台. 
+
+### 意义
+
+通过python的pandas, matplotlib, pyecharts等库, 对数据进行统计分析, 将信息可视化, 绘制成条形图, 柱状图, 饼状图, 折线图等, 从而探究linux有关代码在2019年的用户提交上传次数, 提交上传时间等信息. 通过分析 linux 2019年的历史提交信息, 我们可以发现一些大型软件工程的开发规律和特点, 从中知道软件的演化过程,
+从而为以后的软件开发过程规范化总结经验.
 
 ## 项目创新点
 
@@ -223,11 +244,83 @@ month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
 
 可以看出:
 
-1. 2019年6月与10月是Linus提交的高峰期, 看来此时已经进入了工作的白热化阶段;
+1. 2019年6月与10月是Linux提交的高峰期, 看来大佬们喜欢把统一提交时间定在6月与10月;
 
-2. 12月的提交量相对于别的月份来说, 尤其少, 看来程序员在一年的结尾都不是很想工作;
+2. 12月的提交量相对于别的月份来说, 尤其少, 看来管理者在一年的结尾都不是很想工作;
 
 3. 总体说来, 6月提交量最多为8148次, 而12月的最少为1398次.
+
+#### author_date数据可视化
+
+同committer_date一样, 首先将爬虫的数据存成`.csv`文件. 下面我们分析的数据均来自生成的`datefile.csv`文件:
+
+```python
+# 读取.csv文件, 这里引用了pandas包和csv包
+import pandas as pd
+import csv
+pr= pd.read_csv(r'C:\Users\w\Desktop\datefile.csv',encoding='ISO-8859-1')
+```
+
+然后将每月上传量按月份取出
+
+```python
+Dec = pr[pr['author_date'].str.startswith("2019-12")]
+Nov = pr[pr['author_date'].str.startswith("2019-11")]
+Oct = pr[pr['author_date'].str.startswith("2019-10")]
+Sept = pr[pr['author_date'].str.startswith("2019-09")]
+Aug = pr[pr['author_date'].str.startswith("2019-08")]
+Jul = pr[pr['author_date'].str.startswith("2019-07")]
+Jun = pr[pr['author_date'].str.startswith("2019-06")]
+May = pr[pr['author_date'].str.startswith("2019-05")]
+Apr = pr[pr['author_date'].str.startswith("2019-04")]
+Mar = pr[pr['author_date'].str.startswith("2019-03")]
+Feb = pr[pr['author_date'].str.startswith("2019-02")]
+Jan = pr[pr['author_date'].str.startswith("2019-01")]
+```
+
+通过计算每一组DataFrame的行数, 来计算每月上传量. 最后, 设置要可视化的参数, 进行可视化. 
+
+```python
+month_counts = [ Jan.shape[0],Feb.shape[0], Mar.shape[0], Apr.shape[0], May.shape[0],Jun.shape[0],
+              Jul.shape[0], Aug.shape[0],Sept.shape[0],Oct.shape[0],Nov.shape[0],Dec.shape[0]]
+```
+
+```python
+month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
+       "Sept","Oct","Nov","Dec"]
+```
+
+最终我们得到了每月上传量柱状图和每月上传量对比的饼状图:
+
+(放上两个图片)
+
+可以看出
+
+1. 2019年6月与8月是Linux上传的高峰期, 此时应该已经进入了工作的白热化阶段;
+
+2. 12月的上传量相对于别的月份来说, 尤其少, 看来程序员在一年的结尾也同样不是很想工作;
+
+3. 总体说来, 6月上传量最多为7435次, 而12月的最少为1183次.
+
+#### 上传与提交次数可视化对比
+
+我们还想探究一下上传与提交的关系, 所以在这里我们又生成了一个两者对比折线图. 
+
+将两个数据放在一起进行比较：
+```python
+plt.plot(x,month_counts,label='committer_date',color='y',linewidth=3.0)
+plt.plot(x,month_counts1,label='author_date',color='b',linewidth=2.0)
+```
+
+然后将折线图可视化出来, 效果如下:
+
+(折线图)
+
+可以看出：
+
+1. 提交量普遍高于上传量, 看来编码比审核复杂;
+
+3. 总体说来, 提交与上传的整体走势还是一致的.
 
 #### Coding时间分布
 
