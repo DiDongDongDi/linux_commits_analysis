@@ -294,9 +294,9 @@ month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
 
 最终我们得到了每月上传量柱状图和每月上传量对比的饼状图:
 
-![柱状图](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_2.png)
+![柱状图](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_3.png)
 
-![饼状图](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_3.png)
+![饼状图](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_4.png)
 
 可以看出
 
@@ -318,7 +318,7 @@ plt.plot(x,month_counts1,label='author_date',color='b',linewidth=2.0)
 
 然后将折线图可视化出来, 效果如下:
 
-![折线图](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_4.png)
+![折线图](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_2.png)
 
 可以看出：
 
