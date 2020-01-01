@@ -378,6 +378,167 @@ plt.plot(x,month_counts1,label='author_date',color='b',linewidth=2.0)
 
 2. 除去星期一和四, 其他星期工作日和休息日的差别不是很大.
 
+#### 提交评论
+
+每一条提交下面都可以发布评论, 数据库中已经收集了各提交下的评论数, 下面对其进行一个统计.
+
+1. 2019年总的评论数为91, 可以说很少, 因此后面只提取了评论数前5的提交信息;
+
+2. 评论数最多的提交是7月18号torvalds提交的`合并floppy分支`, 评论数是28, 其次是3月3号torvalds提交的`Linux 5.0`, 评论数是16, 剩余的提交的评论数都很少.
+
+```
+Total comment count: 91
+
+*****-----*****-----*****-----*****-----*****-----*****-----*****-----*****
+
+author_date: 2019-07-18T15:43:20
+author_login: torvalds
+committer_date: 2019-07-18T15:43:20
+committer_login: torvalds
+comment_count: 28
+message: Merge branch 'floppy'
+
+Merge floppy ioctl verification fixes from Denis Efremov.
+
+This also marks the floppy driver as orphaned - it turns out that Jiri
+no longer has working hardware.
+
+Actual working physical floppy hardware is getting hard to find, and
+while Willy was able to test this, I think the driver can be considered
+pretty much dead from an actual hardware standpoint.  The hardware that
+is still sold seems to be mainly USB-based, which doesn't use this
+legacy driver at all.
+
+The old floppy disk controller is still emulated in various VM
+environments, so the driver isn't going away, but let's see if anybody
+is interested to step up to maintain it.
+
+The lack of hardware also likely means that the ioctl range verification
+fixes are probably mostly relevant to anybody using floppies in a
+virtual environment.  Which is probably also going away in favor of USB
+storage emulation, but who knows.
+
+Will Decon reviewed the patches but I'm not rebasing them just for that,
+so I'll add a
+
+  Reviewed-by: Will Deacon <will@kernel.org>
+
+here instead.
+
+* floppy:
+  MAINTAINERS: mark floppy.c orphaned
+  floppy: fix out-of-bounds read in copy_buffer
+  floppy: fix invalid pointer dereference in drive_name
+  floppy: fix out-of-bounds read in next_valid_format
+  floppy: fix div-by-zero in setup_format_params
+
+*****-----*****-----*****-----*****-----*****-----*****-----*****-----*****
+
+author_date: 2019-03-03T23:21:29
+author_login: torvalds
+committer_date: 2019-03-03T23:21:29
+committer_login: torvalds
+comment_count: 16
+message: Linux 5.0
+
+*****-----*****-----*****-----*****-----*****-----*****-----*****-----*****
+
+author_date: 2019-07-30T18:15:44
+author_login: bebarino
+committer_date: 2019-09-04T10:43:49
+committer_login: gregkh
+comment_count: 4
+message: tty: Remove dev_err() usage after platform_get_irq()
+
+We don't need dev_err() messages when platform_get_irq() fails now that
+platform_get_irq() prints an error message itself when something goes
+wrong. Let's remove these prints with a simple semantic patch.
+
+// <smpl>
+@@
+expression ret;
+struct platform_device *E;
+@@
+
+ret =
+(
+platform_get_irq(E, ...)
+|
+platform_get_irq_byname(E, ...)
+);
+
+if ( \( ret < 0 \| ret <= 0 \) )
+{
+(
+-if (ret != -EPROBE_DEFER)
+-{ ...
+-dev_err(...);
+-... }
+|
+...
+-dev_err(...);
+)
+...
+}
+// </smpl>
+
+While we're here, remove braces on if statements that only have one
+statement (manually).
+
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jslaby@suse.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+Link: https://lore.kernel.org/r/20190730181557.90391-45-swboyd@chromium.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+*****-----*****-----*****-----*****-----*****-----*****-----*****-----*****
+
+author_date: 2019-07-30T13:44:07
+author_login: medude
+committer_date: 2019-08-03T00:00:01
+committer_login: miquelraynal
+comment_count: 3
+message: mtd: rawnand: micron: handle on-die "ECC-off" devices correctly
+
+Some devices are not supposed to support on-die ECC but experience
+shows that internal ECC machinery can actually be enabled through the
+"SET FEATURE (EFh)" command, even if a read of the "READ ID Parameter
+Tables" returns that it is not.
+
+Currently, the driver checks the "READ ID Parameter" field directly
+after having enabled the feature. If the check fails it returns
+immediately but leaves the ECC on. When using buggy chips like
+MT29F2G08ABAGA and MT29F2G08ABBGA, all future read/program cycles will
+go through the on-die ECC, confusing the host controller which is
+supposed to be the one handling correction.
+
+To address this in a common way we need to turn off the on-die ECC
+directly after reading the "READ ID Parameter" and before checking the
+"ECC status".
+
+Cc: stable@vger.kernel.org
+Fixes: dbc44edbf833 ("mtd: rawnand: micron: Fix on-die ECC detection logic")
+Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+
+*****-----*****-----*****-----*****-----*****-----*****-----*****-----*****
+
+author_date: 2019-10-27T17:19:19
+author_login: torvalds
+committer_date: 2019-10-27T17:19:19
+committer_login: torvalds
+comment_count: 2
+message: Linux 5.4-rc5
+```
+
+然后找了一下`Linux 5.0`的评论(部分)和代码修改, 如下:
+
+![Linux 5.0 提交部分评论](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_3.png)
+
+看来那个时候Linux5.0发布了, 大家都很兴奋啊!
+
 ### 结果展示
 
 
