@@ -199,7 +199,7 @@ user | avatar | html
 
 ### 数据分析
 
-#### 各月提交次数
+#### 各月提交次数分析
 
 代码文件为`./data_analysis/month_committer_date.py`.
 
@@ -255,7 +255,7 @@ month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
 
 3. 总体说来, 6月提交量最多为8148次, 而12月的最少为1398次.
 
-#### 各月上传次数
+#### 各月上传次数分析
 
 代码文件为`./data_analysis/month_author_date.py`.
 
@@ -311,7 +311,7 @@ month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
 
 3. 总体说来, 6月上传量最多为7435次, 而12月的最少为1183次.
 
-#### 上传与提交次数对比
+#### 上传与提交次数对比分析
 
 代码文件为`./data_analysis/month_author_committer_compare.py`.
 
@@ -334,7 +334,7 @@ plt.plot(x,month_counts1,label='author_date',color='b',linewidth=2.0)
 
 2. 总体说来, 提交与上传的整体走势还是一致的.
 
-#### Coding时间分布
+#### Coding时间分布分析
 
 代码文件为`./data_analysis/Linus_hour_week_commit_analysis.py`.
 
@@ -378,7 +378,7 @@ plt.plot(x,month_counts1,label='author_date',color='b',linewidth=2.0)
 
 2. 除去星期一和四, 其他星期工作日和休息日的差别不是很大.
 
-#### 提交评论
+#### 提交评论分析
 
 每一条提交下面都可以发布评论, 数据库中已经收集了各提交下的评论数, 下面对其进行一个统计.
 
