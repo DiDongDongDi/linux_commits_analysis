@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="template-web.js"></script>
+    <title>Document</title>
+    <style>
+        *{
+            list-style: none;
+            margin:0;
+            padding: 0;
+        }
+        body {
+            /*background:url(background.jpg) top center no-repeat; background-size:cover;*/
+        }
+        a{
+            color:midnightblue;
+            text-decoration: none;
+        }
+        #header{
+            margin-bottom: 35px;
+            height:30px;
+            background-color: #f2f0ff;
+            /*box-sizing: border-box;*/
+        }
+        h1{
+            margin-left: 100px;
+            display: inline-block;
+            color:midnightblue;
+            font-size: 18px;
+        }
+        .cleafix::after{
+            content: "";
+            display: block;
+            clear:both;
+        }
+        #header button{
+            float:right;
+            width:200px;
+            height:30px;
+            background-color: #f2f0ff;
+            border:1px solid #e3e5ff;
+        }
+        .buttonContent button {
+            background-color: #e1e6ff;
+            border: 1px solid #bfd9ff;
+            border-radius: 10px;
+            height:25px;
+            width: 80px;
+            text-align: center;
+            color: midnightblue;
+        }
+        .buttonContent button a{
+            font-weight: 600;
+        }
+        #lastPage{
+            margin-right: 300px;
+        }
+        #template_area{
+            margin-left:100px;
+        }
+        .avatar{
+            width:110px;
+        }
+        .commits{
+            display: inline-block;
+            text-align: left;
+        }
+        .template-li{
+            padding-top:10px;
+            background-color:#f2f0ff;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .avatar:hover{
+            width:115px;
+        }
+        button:hover,#header button:hover{
+            background-color: #bfd9ff;
+            font-size: 14px;
+            color:chocolate;
+        }
+        .template-ul{
+            display: grid;
+            grid-template-columns:  repeat(5, 187px);
+            grid-template-rows:  repeat(2,187px) ;
+            grid-row-gap: 7px;
+            grid-column-gap: 7px;
+            text-align: center;
+            color:midnightblue;
+        }
+        .inline-block{
+            display: inline-block;
+        }
+        #pageContent{
+            margin-top:10px;
+        }
+        .buttonContent{
+            display: inline-block;
+            margin:10px 0 20px 100px;
+        }
+        #pageContent span{
+            color:midnightblue;
+            margin-right:25px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="header" class="cleafix">
+        <h1>linux commits analysis</h1>
+        <button><a href="./dataAnalysis.html">数据分析结果展示</a></button>
+        <button><a href="./index.html">首页</a></button>
+    </div>
+    <div id="wrapper">
+         <div class="buttonContent">
+            <button id="previousPage">上一页</button>
+            <button id="nextPage"> 下一页</button>
+            <button id="lastPage">尾页</button>
+            跳转到第: <input type="text" id="turnToPage" name="turnToPage"/>页<button id="go">go</button>
+        </div>
+        <div id="template_area"></div>
+    </div>
+
+
+    <script type="text/javascript" src="jquery-3.4.1.js"></script>
+    <script id="rankList" type="text/html">
+        <ul class="template-ul">
+            {{each content value index}}
+            {{if index>((remoteDataset.currentPage-1)*10-1)&& index<=remoteDataset.currentPage*10-1}}
+            <li class="template-li">
+                <a href="{{value.html}}" class="inline-block"><img src="{{value.avatar}}" alt="" class="avatar"></a>
+                <div class="commits">
+                   <p> name: {{value.user}}</p>
+                   <p> committer:{{value.committer_login}}</p>
+                   <p> author:{{value.author_login}}</p>
+                </div>
+            </li>
+            {{/if}}
+            {{/each}}
+        </ul>
+        <div id="pageContent">
+             <span>第{{remoteDataset.currentPage}}页</span>
+             <span>共{{remoteDataset.totalNum}}位用户</span>
+             <span>共{{remoteDataset.totalPage}}页</span>
+        </div>
+    </script>
+    <script>
+        var showList={
+            dataJson:null,
+            searchName:null,
+            currentPage:1,
+            totalPage:252,
+            totalNum:2520,
+            nextPageEle:null,
+            previousPageEle:null,
+            lastPageEle:null,
+            goEle:null,
+            init:function () {
+                var self=this;
+                $.post("../json/users.json").done(function (data) {
+                    self.dataJson=JSON.parse(data);
+                    self.initEle();
+                    self.show();
+                });
+            },
+            initEle:function(){
+                var self=this;
+                $(function(){
+                    $("#previousPage").click(function () {
+                        self.handlePreviousPage();
+                    });
+                    $("#lastPage").click(function () {
+                        self.handleLastPage();
+                    });
+                    $("#go").click(function () {
+                        var value=$("input#turnToPage").val();
+                        console.log(value);
+                        if(value.trim().length!==0&&!isNaN(parseInt(value))){
+                             self.handleGo(value);
+                        }
+                    });
+                    $("#nextPage").click(function(){
+                        self.handleNextPage();
+                      });
+
+                });
+            },
+            handleLastPage:function(){
+              this.currentPage=this.totalPage;
+              this.show();
+            },
+            handleGo:function(value){
+                console.log("go");
+                this.currentPage=parseInt(value);
+                this.isPageLegal();
+                this.show();
+            },
+            handlePreviousPage:function(){
+                this.currentPage-=1;
+                this.isPageLegal();
+                this.show();
+            },
+            handleNextPage:function(){
+                this.currentPage+=1;
+                this.isPageLegal();
+                this.show();
+            },
+            isPageLegal:function(){
+                if(this.currentPage<1){
+                    this.currentPage=1;
+                }
+                if(this.currentPage>this.totalPage){
+                    this.currentPage=this.totalPage;
+                }
+            },
+            show:function () {
+                var self=this;
+                var remoteDataset={
+                        currentPage:self.currentPage,
+                        totalNum: self.totalNum,
+                        totalPage: self.totalPage,
+                    };
+                console.log(this.dataJson);
+                var t={
+                    content:self.dataJson,
+                    remoteDataset:remoteDataset,
+                    };
+                var html = template('rankList', t);
+                document.getElementById('template_area').innerHTML = html;
+            }
+        };
+            showList.init();
+    </script>
+
+</body>
+</html>
