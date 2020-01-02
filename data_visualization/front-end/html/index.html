@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/jquery-3.4.1.js" async="async"></script>
+    <script type="text/javascript" src="../js/template-web.js" async="async"></script>
+    <script type="text/javascript" src="../js/index.js" async="async"></script>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <div id="header" class="cleafix">
+        <h1>linux commits analysis</h1>
+        <button><a href="./dataAnalysis.html">数据分析结果展示</a></button>
+        <button><a href="./index.html">首页</a></button>
+    </div>
+    <div id="wrapper">
+         <div class="buttonContent">
+            <button id="previousPage">上一页</button>
+            <button id="nextPage"> 下一页</button>
+            <button id="lastPage">尾页</button>
+            跳转到第: <input type="text" id="turnToPage" name="turnToPage"/>页<button id="go">go</button>
+        </div>
+        <div id="template_area"></div>
+    </div>
+
+    <script id="rankList" type="text/html">
+        <ul class="template-ul">
+            {{each content value index}}
+            {{if index>((remoteDataset.currentPage-1)*10-1)&& index<=remoteDataset.currentPage*10-1}}
+            <li class="template-li">
+                <a href="{{value.html}}" class="inline-block"><img src="{{value.avatar}}" alt="" class="avatar"></a>
+                <div class="commits">
+                   <p> name: {{value.user}}</p>
+                   <p> committer:{{value.committer_login}}</p>
+                   <p> author:{{value.author_login}}</p>
+                </div>
+            </li>
+            {{/if}}
+            {{/each}}
+        </ul>
+        <div id="pageContent">
+             <span>第{{remoteDataset.currentPage}}页</span>
+             <span>共{{remoteDataset.totalNum}}位用户</span>
+             <span>共{{remoteDataset.totalPage}}页</span>
+        </div>
+    </script>
+
+
+</body>
+</html>
