@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /*.wrapper{*/
+        /*    display: grid;*/
+        /*    grid-template-columns: 1fr 2fr;*/
+        /*}*/
+        #left{
+            display: inline-block;
+            width:25%;
+            height:500px;
+            border:1px solid black;
+            margin-right: 10px;
+        }
+        #right{
+            display: inline-block;
+            width:70%;
+            height:500px;
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+<!--    <button><a href="./index.html">返回首页</a></button>-->
+<!--    <h2>数据分析结果展示</h2>-->
+    <div class="wrapper">
+        <div class="clearfix" id="left">
+            <p>按月分析：</p>
+            <button id="committer_histogram">每月提交柱形图</button>
+            <button id="committer_pie">每月提交饼图</button>
+            <button id="author_histogram">每月上传柱状图</button>
+            <button id="author_pie">每月上传饼图</button>
+            <button id="compare_lineChart">对比折线图</button>
+            <p>按用户上传和提交次数分析</p>
+            <button>用户上传次数柱状图</button>
+            <button>用户上传次数饼图</button>
+            <button>用户提交次数柱状图</button>
+            <button>用户提交次数饼图</button>
+            <p>按……</p>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+        </div>
+        <div id="right">
+
+        </div>
+    </div>
+    <script type="text/javascript" src="jquery-3.4.1.js"></script>
+    <script type="text/javascript">
+        var showChart={
+            href_month:["./committer_date_histogram.html","./committer_date_pie.html",
+                "./author_date_histogram.html","./committer_date_pie.html",
+                "./compare_lineChart.jpg"],
+            href_login:[],
+            rightSection_width:0,
+            init:function () {
+                var self=this;
+                 $(function(){
+                     self.getWidth();
+                      $("#committer_histogram").click(function (e) {
+                          console.log("click");
+                         e.preventDefault(); //阻止事件默认行为
+                        self.loadHtml(self.href_month[0]);
+                    });
+                    $("#committer_pie").click(function (e) {
+                         e.preventDefault();
+                        self.loadHtml(self.href_month[1]);
+                    });
+                    $("#author_histogram").click(function (e) {
+                         e.preventDefault();
+                        self.loadHtml(self.href_month[2]);
+                    });
+                    $("#author_pie").click(function (e) {
+                         e.preventDefault();
+                        self.loadHtml(self.href_month[3]);
+                    });
+                    $("#compare_lineChart").click(function (e) {
+                        console.log("dafaf");
+                         e.preventDefault();
+                        self.loadImage(self.href_month[4]);
+                    });
+
+                 })
+            },
+            loadHtml:function(href){
+                console.log("load");
+                var $content= $("#right");
+                $content.innerHTML="";
+                $content.load(href);
+                console.log(this.rightSection_width)
+                // $content.style.width=this.rightSection_width;
+            },
+            loadImage:function(href){
+                var content=$("#right");
+                content.empty();
+                var img=document.createElement("img");
+                img.src=href;
+                content.append(img);
+            },
+            getWidth:function () {
+                this.rightSection_width=$("#right").offsetWidth;
+                console.log(this.rightSection_width);
+            }
+        };
+        showChart.init();
+
+    </script>
+
+
+
+
+</body>
+</html>
