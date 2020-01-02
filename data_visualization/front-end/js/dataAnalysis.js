@@ -6,9 +6,11 @@ var showChart={
     href_hour:"./Linus_hour_commit.html",
     href_week:"./Linus_week_commit.html",
     href_message:"./message_analysis.html",
+    href_person:["./author_committer_counts.html","./author_committer_describe.html"],
     init:function () {
         var self=this;
          $(function(){
+             self.initShow();
               $("#committer_histogram").click(function (e) {
                  e.preventDefault(); //阻止事件默认行为
                 self.loadHtml(self.href_month[0]);
@@ -41,22 +43,32 @@ var showChart={
                  e.preventDefault();
                 self.loadHtml(self.href_message);
             });
-
+            $("#person_author_commit").click(function (e) {
+                 e.preventDefault();
+                self.loadHtml(self.href_person[0]);
+            });
+              $("#person_describe").click(function (e) {
+                 e.preventDefault();
+                self.loadHtml(self.href_person[1]);
+            });
          })
     },
     loadHtml:function(href){
         var $content= $("#right");
         $content.innerHTML="";
         $content.load(href);
-        // $content.style.width=this.rightSection_width;
     },
     loadImage:function(href){
         var content=$("#right");
         content.empty();
         var img=document.createElement("img");
         img.src=href;
+        img.style="margin:15px 0 0 15px";
         content.append(img);
     },
+    initShow:function () {
+        this.loadHtml(this.href_month[0]);
+    }
 
 };
 showChart.init();
