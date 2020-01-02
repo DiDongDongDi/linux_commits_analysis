@@ -6,13 +6,15 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script type="text/javascript" src="../js/jquery-3.4.1.js" async="async"></script>
+    <script type="text/javascript" src="../js/jquery-3.4.1.js" ></script>
     <script type="text/javascript" src="../js/dataAnalysis.js" async="async"></script>
     <link rel="stylesheet" href="../css/dataAnalysis.css">
 </head>
 <body>
-    <button><a href="./index.html">返回首页</a></button>
-    <h2>数据分析结果展示</h2>
+    <div id="header">
+        <button id="return"><a href="./index.html">返回首页</a></button>
+        <h2>数据分析结果展示</h2>
+    </div>
     <div class="wrapper">
         <ul id="left">
             <li>
@@ -24,22 +26,20 @@
                 <button id="compare_lineChart">对比折线图</button>
             </li>
             <li>
-                <p>按小时分析</p>
+                <p>按小时分析:</p>
                 <button id="hour_commit">每小时提交柱状图</button>
             </li>
             <li>
-                <p>按周分析</p>
+                <p>按周分析:</p>
                 <button id="week_commit">每周提交柱状图</button>
             </li>
             <li>
-                <p>按用户上传和提交次数分析</p>
-<!--            <button>用户上传次数柱状图</button>-->
-<!--            <button>用户上传次数饼图</button>-->
-<!--            <button>用户提交次数柱状图</button>-->
-<!--            <button>用户提交次数饼图</button>-->
+                <p>按用户上传和提交次数分析:</p>
+                <button id="person_author_commit">用户上传和提交次数对比</button>
+                <button id="person_describe">用户上传和提交统计信息</button>
             </li>
             <li>
-                <p>按提交信息分析</p>
+                <p>按提交信息分析:</p>
                 <button id="message_analysis">提交信息分析饼图</button>
             </li>
             </ul>
