@@ -3,40 +3,43 @@
     margin:0;
     padding: 0;
 }
-body {
-    /*background:url(background.jpg) top center no-repeat; background-size:cover;*/
-}
 a{
     color:midnightblue;
     text-decoration: none;
 }
 #header{
-    margin-bottom: 35px;
+    margin:10px 0 35px 100px;
     height:30px;
-    background-color: #f2f0ff;
-    /*box-sizing: border-box;*/
+}
+#changeHtml{
+     display: inline-block;
+    background-color: #cbd8d9;
+    font-size:14px;
+    border-radius: 10px;
+    width:190px;
+    height:30px;
+    border:1px solid #cbd8d9;
+    float:right;
+    margin-right: 20px;
+}
+#changeHtml:hover{
+    width:193px;
+    height:32px;
+    background-color: #bfd9ff;
+    font-weight: 600;
 }
 h1{
-    margin-left: 100px;
     display: inline-block;
-    color:midnightblue;
-    font-size: 18px;
 }
 .cleafix::after{
     content: "";
     display: block;
     clear:both;
 }
-#header button{
-    float:right;
-    width:200px;
-    height:30px;
-    background-color: #f2f0ff;
-    border:1px solid #e3e5ff;
-}
+
 .buttonContent button {
-    background-color: #e1e6ff;
-    border: 1px solid #bfd9ff;
+    background-color: #f0dfda;
+    border: 1px solid #f6fdff;
     border-radius: 10px;
     height:25px;
     width: 80px;
@@ -61,14 +64,14 @@ h1{
 }
 .template-li{
     padding-top:10px;
-    background-color:#f2f0ff;
-    border-radius: 5px;
+    background-color:#f6fdff;
+    border-radius: 10px;
     box-sizing: border-box;
 }
 .avatar:hover{
     width:115px;
 }
-button:hover,#header button:hover{
+button:hover{
     background-color: #bfd9ff;
     font-size: 14px;
     color:chocolate;
