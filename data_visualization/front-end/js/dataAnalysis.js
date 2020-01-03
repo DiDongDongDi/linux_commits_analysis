@@ -1,6 +1,6 @@
 var showChart={
     href_month:["./committer_date_histogram.html","./committer_date_pie.html",
-        "./author_date_histogram.html","./committer_date_pie.html",
+        "./author_date_histogram.html","./author_date_pie.html",
         "../image/compare_lineChart.jpg"],
     href_login:[],
     href_hour:"./Linus_hour_commit.html",
