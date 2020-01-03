@@ -263,6 +263,30 @@ user | avatar | html
 > 抓取数据的时间是`2019年12月27日`, 最近的一条数据的时间是`2019年12月23日`, 所以并不算是2019年全年, 由于时间有限, 数据结果仅供参考.
 
 ### 数据分析
+#### 数据格式转换
+
+为方便后期的数据分析和可视化，把需要的数据写入csv文件，用pandas读取csv文件非常方便，而且速度很快，适合大量数据的处理。或者转成json格式，便于前端展示。
+
+~~~python 
+# 例如生成usersfile.csv
+with codecs.open('csvfolder/usersfile.csv', 'w', 'utf-8') as csvfile:
+    writer = csv.writer(csvfile)
+    # 先写入columns_name
+    writer.writerow(["_id", "user", "avatar", "html"])
+    # 写入多行用writerows
+    for data in usersCursor:
+        writer.writerows([[data["_id"], data["user"], data["avatar"], data["html"]]])
+# 需要注意数据的类型，"author_date"是日期类型，"author_login"=None的情况，这些都需要转换成字符串类型才能用上面的方法写入。
+# data["author_date"] = data["author_date"].strftime('%Y-%m-%d %H:%M:%S')
+#data["committer_login"] = str(data["author_login"])
+
+#生成JSON文件
+userjson = newUser.to_json(orient='records')
+with open('json/users.json', 'w', encoding="UTF-8") as jf:
+    jf.write(json.dumps(userjson, indent=2))
+
+~~~
+
 
 #### 各月提交次数分析
 
