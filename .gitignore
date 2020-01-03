@@ -7,3 +7,5 @@ secret
 
 # generated files
 *.html
+*.log
+*.pdf
