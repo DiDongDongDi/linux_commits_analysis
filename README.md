@@ -28,6 +28,8 @@
 
 # **开源软件基础**课程报告
 
+项目地址: [http://git.oscar-lab.org:8888/201792222/linux_commits_analysis](http://git.oscar-lab.org:8888/201792222/linux_commits_analysis)
+
 ## 项目信息
 
 >- 项目名称: Github开源项目**torvalds/linux**历史提交信息分析统计
