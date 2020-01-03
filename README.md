@@ -700,6 +700,8 @@ newUser = newUser.drop_duplicates(subset='user', keep='last')# 去重
 
 ![数据分析结果展示页面](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liquanyang_0.png)
 
+项目展示页面: [http://works.wangqy.top/linux_commits_analysis/](http://works.wangqy.top/linux_commits_analysis/)
+
 ## 项目分析
 
 总体来说, 这一次的项目做的还是很不错的. 从数据的抓取, 到数据的各种分析, 以及最后的分析结果的展示, 基本上都圆满地完成了.
