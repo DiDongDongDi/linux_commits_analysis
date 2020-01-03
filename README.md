@@ -657,6 +657,41 @@ message: Linux 5.4-rc5
 
 2. 除去`Others`的部分, `drm`占比最多, 为32.35%, 其次是`Merge`(合并操作), 占比为22.84%, 再者是`Net`, 占比为18.48%.
 
+
+#### 个人上传和提交次数对比分析
+
+1.首先需要从`commits`表里的`74010`条数据中把个人的上传和提交次数统计出来，用如下方法计算上传次数，同理可以得到提交次数（commit count）
+
+```python
+def getAuthorCount(str):
+    return list(author_commit_df["author_login"]).count(str)
+```
+
+2.然后把得到的数据temp.csv和user.csv的数据按用户名合并,注意temp.csv和user.csv文件的字段如下
+
+| user   | author_login | commit_login |
+| ------ | ------------ | ------------ |
+| 用户名 | 上传次数     | 提交次数     |
+
+| _id        | user   | avatar   | html     |
+| ---------- | ------ | -------- | -------- |
+| 唯一的标识 | 用户名 | 头像链接 | 主页链接 |
+
+~~~python
+newUser = pd.merge(newUser, users, on='user') #合并
+newUser = newUser.drop_duplicates(subset='user', keep='last')# 去重
+# 生成json文件，用于前端页面展示，在结果展示页面中说明
+~~~
+
+3.将去重后的temp.csv按`author_commit`字段进行排序，调用`pandas`的`describe()`得到平均值，方差等数据（排序前调用也可以可以）
+
+4.画两个折线图，一个是每位用户的上传和提交次数的对比图,横坐标表示用户名（空间有限，没有全写），纵坐标表示数量；另一个是用户统计信息对比折线图，纵坐标表示数量（代码详见`person_author_committer_compare.py`）
+
+<img src="http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_6.jpg" alt="2" style="zoom: 50%;" />
+<img src="http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_7.jpg" alt="3" style="zoom:50%;" />
+
+5.从“上传和提交对比折线图”来看，每位用户上传和提交没有什么关系，且总体来说提交的次数要大于上传的次数；从”统计信息对比折线图“来看，用户上传的数量波动较小，除去一个最大值24699，其他人的上传量基本在13左右。
+
 ### 结果展示
 
 
