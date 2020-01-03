@@ -649,7 +649,8 @@ message: Linux 5.4-rc5
 
 下面是除去`Others`的图表:
 
-![各类型提交百分比(除去Others)](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_5.png)
+![各类型提交百分比(除去Others)](http://qiniu.wangqy.top/didong/ima
+>  ges/linux_commits_analysis_5.png)
 
 可以看出:
 
@@ -686,15 +687,17 @@ newUser = newUser.drop_duplicates(subset='user', keep='last')# 去重
 3.将去重后的temp.csv按`author_commit`字段进行排序，调用`pandas`的`describe()`得到平均值，方差等数据（排序前调用也可以可以）
 
 4.画两个折线图，一个是每位用户的上传和提交次数的对比图,横坐标表示用户名（空间有限，没有全写），纵坐标表示数量；另一个是用户统计信息对比折线图，纵坐标表示数量（代码详见`person_author_committer_compare.py`）
-
-<img src="http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_6.jpg" alt="2" style="zoom: 50%;" />
-<img src="http://qiniu.wangqy.top/didong/images/linux_commits_analysis_liukaiyi_7.jpg" alt="3" style="zoom:50%;" />
+![用户上传和提交对比折线图](http://qiniu.wangqy.top/didong/images/line1.jpg)
+![统计信息对比折线图](http://qiniu.wangqy.top/didong/images/line2.jpg)
 
 5.从“上传和提交对比折线图”来看，每位用户上传和提交没有什么关系，且总体来说提交的次数要大于上传的次数；从”统计信息对比折线图“来看，用户上传的数量波动较小，除去一个最大值24699，其他人的上传量基本在13左右。
 
 ### 结果展示
-
-
+结果展示页面分为主页和数据分析结果展示页面。
+主页显示每位用户得姓名，头像，上传和提交次数，采用网格布局。点击头像可以跳转到个人主页，因为数据太多，所以采用分页显示，点击上一页，下一页，或想要跳转的页面时，触发鼠标点击事件，用Ajax请求从json文件中读取数据，再用模板展示出来。（js写的分页，逻辑简单，不做详述，详见front-end/js/index.js）;
+数据分析结果展示页面，采用两栏布局，右侧区域用Ajax局部刷新技术，可以根据需求显示不同的图表，或者跳转回主页。
+![主页](http://qiniu.wangqy.top/didong/images/homePage1.jpg)
+![数据分析结果展示页面](http://qiniu.wangqy.top/didong/images/homePage2.jpg)
 
 ## 项目分析
 
