@@ -644,8 +644,7 @@ message: Linux 5.4-rc5
 
 下面是除去`Others`的图表:
 
-![各类型提交百分比(除去Others)](http://qiniu.wangqy.top/didong/ima
->  ges/linux_commits_analysis_5.png)
+![各类型提交百分比(除去Others)](http://qiniu.wangqy.top/didong/images/linux_commits_analysis_5.png)
 
 可以看出:
 
